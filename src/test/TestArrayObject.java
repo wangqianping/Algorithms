@@ -1,12 +1,12 @@
 package test;
 
-import dataStructure.Demo2;
+import dataStructure.ArrayObject;
 
-public class TestDemo2 {
+public class TestArrayObject {
 
     public static void main(String[] args){
 
-        Demo2 demo = new Demo2();
+        ArrayObject demo = new ArrayObject();
         System.out.println("长度："+demo.size());
         demo.add(1);
         demo.add(2);

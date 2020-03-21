@@ -4,11 +4,11 @@ package dataStructure;
  * 栈
  * 栈也是一种顺序存储的数据结构，他的特殊性就在于先入后出
  */
-public class Demo3 {
+public class Stack {
 
     private int[] elements;
 
-    public Demo3() {
+    public Stack() {
         elements = new int[0];
     }
 

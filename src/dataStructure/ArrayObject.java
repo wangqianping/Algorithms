@@ -6,11 +6,11 @@ import java.util.Arrays;
  * 面向对象的数组
  * 扩展：集合的底层实现原理
  */
-public class Demo2 {
+public class ArrayObject {
 
     private int[] elements;
 
-    public Demo2() {
+    public ArrayObject() {
         elements = new int[0];
     }
 

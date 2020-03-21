@@ -8,7 +8,7 @@ import java.util.Arrays;
  * 顺序存储结构
  */
 
-public class Demo1 {
+public class Array {
 
     public static void main(String[] args) {
         //创建一个数组

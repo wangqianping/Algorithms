@@ -1,12 +1,12 @@
 package test;
 
-import dataStructure.Demo3;
+import dataStructure.Stack;
 
-public class TestDemo3 {
+public class TestStack {
 
     public static void main(String[] args){
 
-        Demo3 demo = new Demo3();
+        Stack demo = new Stack();
 
         demo.push(1);
         demo.push(2);

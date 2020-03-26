@@ -1,9 +1,15 @@
 package algorithm;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * 排序算法
  * 交换排序：冒泡排序和快速排序
  * 插入排序：直接插入排序和希尔排序
+ * 选择排序：简单选择排序和堆排序
+ * 归并排序：
+ * 基数排序：
  */
 public class SortingAlgorithm {
 
@@ -24,7 +30,6 @@ public class SortingAlgorithm {
                 }
             }
         }
-
     }
 
     /**
@@ -75,7 +80,7 @@ public class SortingAlgorithm {
                 for (j = i - 1; j >= 0 && val < array[j]; j--) {
                     array[j + 1] = array[j];
                 }
-                array[j+1] = val;
+                array[j + 1] = val;
             }
 
         }
@@ -83,10 +88,191 @@ public class SortingAlgorithm {
     }
 
     /**
-     * 希尔排序
+     * 希尔排序：
+     * 将数组为成两个小组进行直接插入排序
+     * 分组的方式是以数组处以2得到一个分组的步长
+     * 每一轮排序都是在上一个步长的基础上除以2，直到步长为0
+     * 希尔排序比直接插入排序效率高
      */
-    public void hillSort(int[] array){
-        //todo 明天继续
+    public void shellSort(int[] array) {
+        //轮询步长
+        for (int d = array.length / 2; d > 0; d /= 2) {
+            //遍历所有元素
+            for (int i = d; i < array.length; i++) {
+                //遍历本组所有的元素
+                for (int j = i - d; j >= 0; j -= d) {
+                    //如果当前元素大于加上步长后的那个元素
+                    if (array[j] > array[j + d]) {
+                        int val = array[j];
+                        array[j] = array[j + d];
+                        array[j + d] = val;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 简单选择排序：
+     * 每一轮选出数组中的最小的一个数把它更新在相应的位置
+     * 第N轮就更新第N位
+     */
+    public void selectSort(int[] array) {
+
+        for (int i = 0; i < array.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[min] < array[j]) {
+                    //记录这一轮排序中最小元素的下标
+                    min = j;
+                }
+            }
+            if (min != i) {
+                int val = array[i];
+                array[i] = array[min];
+                array[min] = val;
+            }
+        }
+    }
+
+    /**
+     * 归并逻辑：
+     * 两个有序的数组合并成一个有序的数组，注意是有序的
+     */
+    public void merge(int[] array, int low, int middle, int high) {
+
+        int[] temp = new int[high - low + 1];
+        //用于记录第一个数组中的下标
+        int i = low;
+        //用于记录第二个数组中的下标
+        int j = middle + 1;
+        //用于记录在临时数组中存放的下标
+        int index = 0;
+        //遍历两个数组取出小的数字放入临时数组
+        while (i <= middle && j <= high) {
+            if (array[i] <= array[j]) {
+                temp[index] = array[i];
+                i++;
+            } else {
+                temp[index] = array[j];
+                j++;
+            }
+            index++;
+        }
+
+        while (i <= middle) {
+            temp[index] = array[i];
+            i++;
+            index++;
+        }
+
+        while (j <= high) {
+            temp[index] = array[j];
+            j++;
+            index++;
+        }
+
+        //把临时数组重新存入原数组
+        for (int k = 0; k < temp.length; k++) {
+            array[low + k] = temp[k];
+        }
+    }
+
+    /**
+     * 归并排序
+     * 递归的方式
+     */
+    public void mergeSort(int[] array, int low, int high) {
+        int middle = (low + high) / 2;
+        if (low < high) {
+            //处理左边,为了让左边有序
+            mergeSort(array, low, middle);
+            //处理右边，为了让右边有序
+            mergeSort(array, middle + 1, high);
+            //归并
+            merge(array, low, middle, high);
+        }
+
+    }
+
+    /**
+     * 基数排序:
+     * 每一次轮循都是比较某个位置上的数进行排序
+     * 第一次个位比第二次十位比，依次类推
+     */
+    public void RedixSort(int[] array) {
+        //存数组中最大的数
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        //最大的数字是几位数
+        int maxLength = (max + "").length();
+        //用于临时存储每次比较时放在不同位置的数组
+        int[][] temp = new int[10][array.length];
+        //用于存放temp数组中每一行存放的数据的个数
+        int[] counts = new int[10];
+        //根据最大长度决定比较的次数
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+            //把数字存进temp
+            for (int j = 0; j < array.length; j++) {
+                //取出每一位上的数并进行存储和统计个数
+                int remainder = array[j] / n % 10;
+                temp[remainder][counts[remainder]] = array[j];
+                counts[remainder] = counts[remainder] + 1;
+            }
+            int index = 0;
+            //把数字从temp取出来并更新原数组，相当于按位数进行了一轮排序
+            for (int k = 0; k < counts.length; k++) {
+                if (counts[k] != 0) {
+                    for (int l = 0; l < counts[k]; l++) {
+                        array[index] = temp[k][l];
+                        index++;
+                    }
+                    //一轮比较后清楚缓存数据
+                    counts[k] = 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * 基础排序，队列实现
+     */
+    public void RedixQueueSort(int[] array) {
+        //存数组中最大的数
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        //最大的数字是几位数
+        int maxLength = (max + "").length();
+        //每一次放数据时放到的队列
+        Queue<Integer>[] temp = new Queue[10];
+        for(int i=0;i<temp.length;i++){
+            temp[i] = new LinkedList<>();
+      }
+        //根据最大长度决定比较的次数
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+            //把数字存进temp
+            for (int j = 0; j < array.length; j++) {
+                //取出每一位上的数并进行存储和统计个数
+                int remainder = array[j] / n % 10;
+                temp[remainder].add(array[j]);
+            }
+            int index = 0;
+            //把数字从temp取出来并更新原数组，相当于按位数进行了一轮排序
+            for (int k = 0; k < temp.length; k++) {
+                while (!temp[k].isEmpty()) {
+                    array[index] = temp[k].poll();
+                    index++;
+                }
+            }
+        }
     }
 
 

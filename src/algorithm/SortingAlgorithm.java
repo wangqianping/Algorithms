@@ -1,5 +1,6 @@
 package algorithm;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,7 +13,6 @@ import java.util.Queue;
  * 基数排序：
  */
 public class SortingAlgorithm {
-
 
     /**
      * 冒泡排序法:
@@ -136,6 +136,65 @@ public class SortingAlgorithm {
     }
 
     /**
+     * 堆排序：
+     * 堆：数据结构中的一种，可以把他看作一个二叉树的数组对象
+     * 根节点都比子节点大的叫大顶堆，根节点都比子节点小的叫小顶堆
+     * 升序排序：用大顶堆
+     * 降序排序：用小顶堆
+     */
+    public void heapSort(int[] array) {
+
+        //从最后一个非叶子节点开始，即最后一个节点的父节点
+        int start = (array.length - 1) / 2;
+        //将数组转换成大顶堆
+        for (int i = start; i >= 0; i--) {
+            maxheap(array, array.length, i);
+        }
+        System.out.println("第1次 " + Arrays.toString(array));
+        int n = 2;
+        //将数组转换成大顶堆后需要交换第一个元素和最后一个元素的位置
+        for (int i = array.length - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+            //第一次的时候已经将整个数组转换成了大顶堆，这里交换了以后可能会影响之前已经排好的，所以从这个位置开始要继续调整
+            maxheap(array, i, 0);
+            System.out.println("第" + (n++) + "次 " + Arrays.toString(array));
+        }
+    }
+
+    /**
+     * 将一个数组变成一个大顶堆
+     *
+     * @param array
+     * @param size
+     * @param index
+     */
+    public void maxheap(int[] array, int size, int index) {
+        //左子节点
+        int left = 2 * index + 1;
+        //右子节点
+        int right = 2 * index + 2;
+        int max = index;
+        //和两个子节点比较找出最大的那个节点
+        if (left < size && array[left] > array[max]) {
+            max = left;
+        }
+        if (right < size && array[right] > array[max]) {
+            max = right;
+        }
+        //如果子节点大则交换位置
+        if (max != index) {
+            int temp = array[index];
+            array[index] = array[max];
+            array[max] = temp;
+            //交换位置后可能会影响array[max]与他的子节点不能构成大顶堆的格式，所以那个位置要继续调整
+            maxheap(array, size, max);
+        }
+    }
+
+
+    /**
      * 归并逻辑：
      * 两个有序的数组合并成一个有序的数组，注意是有序的
      */
@@ -253,9 +312,9 @@ public class SortingAlgorithm {
         int maxLength = (max + "").length();
         //每一次放数据时放到的队列
         Queue<Integer>[] temp = new Queue[10];
-        for(int i=0;i<temp.length;i++){
+        for (int i = 0; i < temp.length; i++) {
             temp[i] = new LinkedList<>();
-      }
+        }
         //根据最大长度决定比较的次数
         for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
             //把数字存进temp

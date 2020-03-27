@@ -1,4 +1,4 @@
-package dataStructure;
+package dataStructure.queueAndStack;
 
 /**
  * 队列

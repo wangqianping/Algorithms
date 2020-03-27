@@ -1,4 +1,4 @@
-package dataStructure;
+package dataStructure.linkedList;
 
 /**
  * 单链表

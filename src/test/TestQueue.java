@@ -1,8 +1,6 @@
 package test;
 
-import dataStructure.Queue;
-
-import java.util.Arrays;
+import dataStructure.queueAndStack.Queue;
 
 public class TestQueue {
 

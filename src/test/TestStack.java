@@ -1,6 +1,6 @@
 package test;
 
-import dataStructure.Stack;
+import dataStructure.queueAndStack.Stack;
 
 public class TestStack {
 

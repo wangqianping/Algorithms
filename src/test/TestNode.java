@@ -1,6 +1,6 @@
 package test;
 
-import dataStructure.Node;
+import dataStructure.linkedList.Node;
 
 public class TestNode {
 

@@ -1,4 +1,4 @@
-package dataStructure;
+package dataStructure.linkedList;
 
 /**
  * 循环链表

@@ -1,6 +1,6 @@
 package test;
 
-import dataStructure.DoubleNode;
+import dataStructure.linkedList.DoubleNode;
 
 public class TestDoubleNode {
 

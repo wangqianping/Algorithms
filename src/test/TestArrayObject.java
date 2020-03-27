@@ -1,6 +1,6 @@
 package test;
 
-import dataStructure.ArrayObject;
+import dataStructure.array.ArrayObject;
 
 public class TestArrayObject {
 

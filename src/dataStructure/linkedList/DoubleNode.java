@@ -1,4 +1,4 @@
-package dataStructure;
+package dataStructure.linkedList;
 
 /**
  * 双向链表

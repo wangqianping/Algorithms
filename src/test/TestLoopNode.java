@@ -1,6 +1,6 @@
 package test;
 
-import dataStructure.LoopNode;
+import dataStructure.linkedList.LoopNode;
 
 public class TestLoopNode {
 

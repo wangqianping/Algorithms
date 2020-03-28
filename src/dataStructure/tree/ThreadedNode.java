@@ -1,32 +1,60 @@
 package dataStructure.tree;
 
 /**
- * 二叉树节点对象
+ * 线索化二叉树的节点，增加了节点类型
  */
-public class TreeNode {
+public class ThreadedNode {
 
-    TreeNode leftNode;
-    int value;
-    TreeNode rightNode;
+    private ThreadedNode leftNode;
+    private int value;
+    private ThreadedNode rightNode;
+    //标识左节点和y右节点类型,0表示左右节点，1表示前后节点
+    int leftType;
+    int rightType;
 
-    public TreeNode(int value) {
+
+    public ThreadedNode(int value) {
         this.value = value;
     }
 
-    public TreeNode getLeftNode() {
+    public ThreadedNode getLeftNode() {
         return leftNode;
     }
 
-    public void setLeftNode(TreeNode leftNode) {
+    public void setLeftNode(ThreadedNode leftNode) {
         this.leftNode = leftNode;
     }
 
-    public TreeNode getRightNode() {
+    public ThreadedNode getRightNode() {
         return rightNode;
     }
 
-    public void setRightNode(TreeNode rightNode) {
+    public int getLeftType() {
+        return leftType;
+    }
+
+    public void setLeftType(int leftType) {
+        this.leftType = leftType;
+    }
+
+    public int getRightType() {
+        return rightType;
+    }
+
+    public void setRightType(int rightType) {
+        this.rightType = rightType;
+    }
+
+    public void setRightNode(ThreadedNode rightNode) {
         this.rightNode = rightNode;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     //前序遍历
@@ -64,8 +92,8 @@ public class TreeNode {
     }
 
     //前序查找
-    public TreeNode frontSearch(int value) {
-        TreeNode target = null;
+    public ThreadedNode frontSearch(int value) {
+        ThreadedNode target = null;
         if (this.value == value) {
             return this;
         } else {
@@ -83,8 +111,8 @@ public class TreeNode {
     }
 
     //中序查找
-    public TreeNode midSearch(int value) {
-        TreeNode target = null;
+    public ThreadedNode midSearch(int value) {
+        ThreadedNode target = null;
 
         if (leftNode != null) {
             target = leftNode.midSearch(value);
@@ -105,8 +133,8 @@ public class TreeNode {
     }
 
     //后序查找
-    public TreeNode afterSearch(int value) {
-        TreeNode target = null;
+    public ThreadedNode afterSearch(int value) {
+        ThreadedNode target = null;
 
         if (leftNode != null) {
             target = leftNode.afterSearch(value);
@@ -134,7 +162,7 @@ public class TreeNode {
     //删除一个子树
     public void delete(int value){
 
-        TreeNode parent = this;
+        ThreadedNode parent = this;
 
         if(parent.leftNode!=null && parent.leftNode.value==value){
             parent.leftNode = null;

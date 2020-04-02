@@ -31,7 +31,7 @@ public class HuffmanTree {
             Node newNode = new Node(left.val+right.val);
             newNode.left=left;
             newNode.right=right;
-            //3.除掉取出的两个小的二叉树，将新的二叉树放进原数组,循环知道最后nodes中只有一个node
+            //3.除掉取出的两个小的二叉树，将新的二叉树放进原数组,循环直到最后nodes中只有一个node
             nodes.remove(left);
             nodes.remove(right);
             nodes.add(newNode);
